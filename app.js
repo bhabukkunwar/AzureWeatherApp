@@ -1,18 +1,23 @@
 const axios = require('axios');
+const { log } = require('console');
 const express = require('express');
 const app = express();
 const path = require('path');
+const bodyParser = require('body-parser');
 require('dotenv').config()
 
-const city = process.env.city;
+
 const app_id = process.env.app_id;
 
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
+app.post('/weather', async (req, res) => {
+    const { city } = req.body
+        //Call an API (e.g., OpenWeatherMap) using axios
     axios.get(`http://api.openweathermap.org/data/2.5/forecast`,{
         params: {'q':`${city}`,'appid':`${app_id}`, 'units':'metric' }
     })
@@ -26,8 +31,12 @@ app.get('/', (req, res) => {
         })
         .catch(err => {
             console.log('Error: ', err.message);
-            // res.render("Error")
+            res.status(500).send('Error fetching weather data. Check your city name and please try again later.');
         });
+})
+
+app.get("/", (req, res)=>{
+    res.render("city", res)
 })
 
 app.listen(80, () => {
