@@ -1,3 +1,9 @@
+# To run the application without docker make sure you have npm and node installed, then follow the following steps.
+
+i. npm install
+
+ii. node app.js
+
 # Build docker image locally
 
 docker build -t azure-web-app .
