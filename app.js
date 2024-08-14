@@ -8,6 +8,7 @@ require('dotenv').config()
 
 
 const app_id = process.env.app_id;
+const port = 80;
 
 app.set('view engine', 'ejs');
 
@@ -39,6 +40,6 @@ app.get("/", (req, res)=>{
     res.render("city", res)
 })
 
-app.listen(80, () => {
-    console.log(`Example app listening on port 80`)
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
 })
