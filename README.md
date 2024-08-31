@@ -4,6 +4,10 @@ i. npm install
 
 ii. node app.js
 
+# Setup env file
+
+create a .env file in the root directory with the variables in .example.env file. To generate the API key for your app sign up for [Open Weather Map API](https://openweathermap.org/api) and request one.
+
 # Build docker image locally
 
 docker build -t azure-web-app .
