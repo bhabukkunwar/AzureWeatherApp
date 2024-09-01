@@ -22,6 +22,11 @@ curl http://localhost or open http://localhost in your browser
 
 # Azure Container Registry (ACR) and Azure Container Instances (ACI) Setup
 
+### Service Principal
+
+- **Client Secret Value:** `<sp-secret-value>`
+- **Client ID:** `<sp-client-id>`
+
 ## ACR
 
 1. Login to Azure:
@@ -43,29 +48,31 @@ curl http://localhost or open http://localhost in your browser
     ```sh
     az acr login --name azureweatherappregistry
     ```
+    
+5. Show the ACR login server:
+    ```sh
+    az acr show --name azurewebappregistry --query loginServer
+    ```
+    
+6. Login ACR with docker:
+    ```sh
+    docker login azureweatherappregistry.azurecr.io --username <sp-client-id> --password <sp-client-id>
+    ```
 
-5. Tag your Docker image:
+7. Tag your Docker image:
     ```sh
     docker tag azure-weather-app azureweatherappregistry.azurecr.io/azure-weather-app:latest
     ```
 
-6. Push your Docker image to the ACR:
+8. Push your Docker image to the ACR:
     ```sh
     docker push azureweatherappregistry.azurecr.io/azure-weather-app:latest
     ```
 
-### Service Principal
-
-- **Secret ID:** `<sp-secret-id>`
-- **Secret Value:** `<sp-secret-value>`
-- **Client ID:** `<sp-client-id>`
 
 ## ACI
 
-1. Show the ACR login server:
-    ```sh
-    az acr show --name azurewebappregistry --query loginServer
-    ```
+
 
 2. Create an Azure Container Instance (ACI):
     ```sh
